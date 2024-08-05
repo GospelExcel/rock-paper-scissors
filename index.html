@@ -22,7 +22,6 @@
           case 3:
             return "Scissors";
         }
-        return "Something is off...";
       }
 
       function capitalizeFirstLetter(string) {
@@ -50,55 +49,60 @@
       }
 
       function playGame() {
-        let score = 0;
-        function playRound(
-          humanChoice = getUserChoice(),
-          computerChoice = getComputerChoice()
-        ) {
+        let playerScore = 0;
+        let computerScore = 0;
+        let rounds = 5;
+
+        function playRound() {
+          const humanChoice = getUserChoice();
+          const computerChoice = getComputerChoice();
           if (humanChoice === computerChoice) {
-            return "We both picked " + humanChoice;
+            alert("It's a tie! We both picked " + humanChoice);
           } else {
             switch (humanChoice) {
               case "Rock":
                 if (computerChoice == "Paper") {
                   alert("I win! Paper beats Rock!");
+                  computerScore++;
                 } else {
-                  alert("I lost... Rock beats Scissors...");
-                  score++;
+                  alert("You win! Rock beats Scissors!");
+                  playerScore++;
                 }
                 break;
 
               case "Paper":
                 if (computerChoice == "Scissors") {
                   alert("I win! Scissors beats Paper!");
+                  computerScore++;
                 } else {
-                  alert("I lost... Paper beats Rock...");
-                  score++;
+                  alert("You win! Paper beats Rock!");
+                  playerScore++;
                 }
                 break;
 
               case "Scissors":
-                if (computerChoice == "Paper") {
+                if (computerChoice == "Rock") {
                   alert("I win! Rock beats Scissors!");
+                  computerScore++;
                 } else {
-                  alert("I lost... Scissors beats Paper...");
-                  score++;
+                  alert("You win! Scissors beats Paper!");
+                  playerScore++;
                 }
                 break;
             }
           }
         }
 
-        playRound();
-        playRound();
-        playRound();
-        playRound();
-        playRound();
+        for (let i = 0; i < rounds; i++) {
+          playRound();
+        }
 
-        if (score <= 2) {
-          alert("Haha, I won ");
+        if (playerScore > computerScore) {
+          alert("Congratulations, you won the game! Score: " + playerScore + "-" + computerScore);
+        } else if (computerScore > playerScore) {
+          alert("Haha, I won the game! Score: " + computerScore + "-" + playerScore);
         } else {
-          alert("Aww, you won");
+          alert("It's a draw! Score: " + playerScore + "-" + computerScore);
         }
       }
 
